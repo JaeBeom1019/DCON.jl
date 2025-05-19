@@ -3,11 +3,11 @@ using AbstractTrees: print_tree
 using Crayons  # 컬러 출력용
 
 # 🎨 Crayon 스타일 정의
-const color_key    = Crayon(foreground=:light_red, bold=false)         # key = 필드 이름
-const color_value  = Crayon(foreground=:light_gray, bold=false)                     # 값
-const color_type   = Crayon(foreground=:light_blue, bold=false) # 일반 타입명 출력용
+const color_key    = Crayon(foreground=:light_red, bold=false)       
+const color_value  = Crayon(foreground=:light_gray, bold=false) 
+const color_type   = Crayon(foreground=:light_blue, bold=false) 
 
-# 🌲 구조체 트리 탐색을 위한 children 정의
+# Define children
 function AbstractTrees.children(x)
     T = typeof(x)
     if isstructtype(T)
@@ -19,7 +19,7 @@ end
 
 
 
-# Pair 타입 (field => value) 노드 출력
+# Pair type (field => value)
 function AbstractTrees.printnode(io::IO, x::Pair)
     # print directly to the IO stream without pre-stringifying ANSI codes
     print(io, color_key, string(x.first)) # Print field name in green bold
@@ -27,19 +27,18 @@ function AbstractTrees.printnode(io::IO, x::Pair)
     print(io, color_value, repr(x.second)) # Print value in blue
 end
 
-# 기본 타입의 노드 출력 (예: Vector, Nothing 등)
+# basic type node print (ex: Vector, Nothing)
 function AbstractTrees.printnode(io::IO, x)
     print(io, color_type, string(typeof(x))) # Print type name in light gray
 end
 
 
-# ===== show() 자동 오버로드 =====
-# 출력 깊이를 제한한 show 함수
+# ===== show() overload =====
 function show_shallow(T::Type)
     @eval Base.show(io::IO, mime::MIME"text/plain", x::$T) = print_tree(io, x; maxdepth=1, indicate_truncation=false)
 end
 
-# 트리로 보고 싶은 구조체 목록
+# Structure list
 tree_types = [
     InputFiles,
     DCONNamelist, DCONControl, DCONOutput,
@@ -49,5 +48,4 @@ tree_types = [
     StrideNamelist, StrideControl, StrideOutput, StrideParams
 ]
 
-# 모두 적용
 foreach(show_shallow, tree_types)
