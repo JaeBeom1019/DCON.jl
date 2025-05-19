@@ -544,9 +544,7 @@ version = "0.4.3"
 
 [[deps.Fortran90Namelists]]
 deps = ["Compat", "IterTools", "OrderedCollections", "Parameters"]
-git-tree-sha1 = "04367146b83bd409d22f5294263d514fb7982235"
-repo-rev = "main"
-repo-url = "https://github.com/JaeBeom1019/Fortran90Namelists.jl.git"
+path = "/home/aspire1019/.julia/dev/Fortran90Namelists"
 uuid = "8fb689aa-71ff-4044-8071-0cffc910b57d"
 version = "0.1.1"
 
