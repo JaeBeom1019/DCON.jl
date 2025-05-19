@@ -7,16 +7,27 @@ const color_key    = Crayon(foreground=:light_red, bold=false)
 const color_value  = Crayon(foreground=:light_gray, bold=false) 
 const color_type   = Crayon(foreground=:light_blue, bold=false) 
 
-# Define children
-function AbstractTrees.children(x)
-    T = typeof(x)
-    if isstructtype(T)
-        return [field => getfield(x, field) for field in fieldnames(T)]
-    else
-        return []
+
+tree_types = [
+    InputFiles,
+    DCONNamelist, DCONControl, DCONOutput,
+    EquilNamelist, EquilControl, EquilOutput,
+    VacNamelist, Modes, Debugs, Vacdat, Shape, Diagns, Sprk,
+    RdconNamelist, RdconControl, RdconOutput, GalInput, GalOutput, UaDiagnoseList,
+    StrideNamelist, StrideControl, StrideOutput, StrideParams
+]
+
+
+# children 메서드를 각 타입에 대해 정의
+for T in tree_types
+    @eval function AbstractTrees.children(x::$T)
+        if isstructtype($T)
+            return [field => getfield(x, field) for field in fieldnames($T)]
+        else
+            return []
+        end
     end
 end
-
 
 
 # Pair type (field => value)
@@ -39,13 +50,6 @@ function show_shallow(T::Type)
 end
 
 # Structure list
-tree_types = [
-    InputFiles,
-    DCONNamelist, DCONControl, DCONOutput,
-    EquilNamelist, EquilControl, EquilOutput,
-    VacNamelist, Modes, Debugs, Vacdat, Shape, Diagns, Sprk,
-    RdconNamelist, RdconControl, RdconOutput, GalInput, GalOutput, UaDiagnoseList,
-    StrideNamelist, StrideControl, StrideOutput, StrideParams
-]
+
 
 foreach(show_shallow, tree_types)
