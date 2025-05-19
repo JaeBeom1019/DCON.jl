@@ -11,9 +11,9 @@ using Printf
 using AbstractTrees
 export Input, run_dcon, run_rdcon, run_stride, run_stability
 
-include("namelist_structure.jl")
 include("plottings.jl")
 include("runner.jl")
+include("namelist_tree.jl")
 
 
 execdir = joinpath(@__DIR__,"..", "executables")

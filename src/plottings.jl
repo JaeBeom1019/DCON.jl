@@ -1,5 +1,5 @@
 using CairoMakie, LaTeXStrings
-using AbstractTrees, Terming
+
 
 include("namelist_structure.jl")
 
@@ -67,56 +67,4 @@ function plot(result::Union{DCON.RdconOutputNetCDF,DCON.StrideOutputNetCDF}; log
 
     display(fig)
 
-end
-
-
-
-# Extend `AbstractTrees.printnode` for custom node display
-function AbstractTrees.printnode(io::IO, x::T) where {T}
-    print(io, Terming.bold_on(), Terming.rgb(100, 150, 255), nameof(T), Terming.color_off(), Terming.bold_off())
-end
-
-# Method for fields of a struct (non-struct values)
-function AbstractTrees.printnode(io::IO, x::Pair{Symbol, Any})
-    field_name = x.first
-    field_value = x.second
-    field_type = typeof(field_value)
-
-    print(io, Terming.bold_on(), Terming.rgb(0, 200, 200), field_name, Terming.color_off(), Terming.bold_off())
-    print(io, Terming.rgb(200, 200, 200), "::", field_type, Terming.color_off())
-    print(io, " = ", Terming.rgb(255, 150, 0), repr(field_value), Terming.color_off())
-end
-
-# Extend `AbstractTrees.children` for structs
-AbstractTrees.children(x) = [] # Default for non-structs or leaf nodes
-
-function AbstractTrees.children(x::T) where {T}
-    if isstructtype(T)
-        child_nodes = []
-        for field in fieldnames(T)
-            field_val = getfield(x, field)
-            # If the field value is itself a struct, add it directly
-            if isstructtype(typeof(field_val))
-                push!(child_nodes, field_val)
-            else
-                # Otherwise, represent it as a Pair{Symbol, Any}
-                push!(child_nodes, field => field_val)
-            end
-        end
-        return child_nodes
-    else
-        return []
-    end
-end
-
-# Custom `show` method for InputFiles to enable `ini` in REPL
-Base.show(io::IO, mime::MIME"text/plain", x::InputFiles) = print_tree(io, x)
-
-# Helper function to print tree with a max depth
-function print_tree(io::IO, x; max_depth::Int = -1)
-    if max_depth == -1
-        AbstractTrees.print_tree(io, x)
-    else
-        AbstractTrees.print_tree(io, x, max_depth = max_depth)
-    end
 end
