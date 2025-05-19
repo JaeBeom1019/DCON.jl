@@ -1,0 +1,10 @@
+[deps]
+AbstractTrees = "1520ce14-60c1-5f80-bbc7-55ef81b5835c"
+FilePaths = "8fc22ac5-c921-52a6-82fd-178b2807b824"
+FilePathsBase = "48062228-2e41-5def-b9a4-89aafe57970f"
+Fortran90Namelists = "8fb689aa-71ff-4044-8071-0cffc910b57d"
+NCDatasets = "85f8d34a-cbdd-5861-8df4-14fed0d494ab"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Terming = "5a1048b7-9ca6-4e8a-8e2e-1f932e78ac4e"
+UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
