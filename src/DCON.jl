@@ -1,6 +1,5 @@
 module DCON
 
-using Revise
 using Fortran90Namelists
 using OrderedCollections
 using NCDatasets
