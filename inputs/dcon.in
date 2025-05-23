@@ -54,7 +54,7 @@
     msol_ahb=1           ! Number of eigenfunctions output by ahb_flag=t ?
     mthsurf0=1           ! Linear multiplier on number of boundary points used to display surface eigenfunctions for ahgb_flag=t
 
-    bin_euler=t          ! Output M psi-by-M euler-lagrange solutions to binary file euler.bin
+    bin_euler=f          ! Output M psi-by-M euler-lagrange solutions to binary file euler.bin
     euler_stride=1       ! Output only every euler_stride'th psi step to binary file
 
     out_bal1=f           ! Ascii output for bal_flag poloidal functions

@@ -4,8 +4,6 @@ using Fortran90Namelists
 using OrderedCollections
 using NCDatasets
 using UUIDs
-using FilePathsBase
-using FilePaths
 using Printf
 using AbstractTrees
 export Input, run_dcon, run_rdcon, run_stride, run_stability
